@@ -26,7 +26,7 @@ class UserTableViewCellRepresentable: TableViewCellRepresentable {
     /// Profile Picture url
     private(set) var profilePictureUrl: String
 
-    
+    private(set) var id: Int
     /**
      Default Initializer
     */
@@ -36,6 +36,7 @@ class UserTableViewCellRepresentable: TableViewCellRepresentable {
         self.fullName = NSAttributedString()
         self.breifInfo = NSAttributedString()
         self.profilePictureUrl = String()
+        self.id = Int()
     }
 
 
@@ -47,10 +48,10 @@ class UserTableViewCellRepresentable: TableViewCellRepresentable {
         self.init()
         
         /// Name Attributes
-        let nameAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: #colorLiteral(red: 0.2916044295, green: 0.5656878948, blue: 0.8853569627, alpha: 1),
+        let fullNameAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: #colorLiteral(red: 0.2916044295, green: 0.5656878948, blue: 0.8853569627, alpha: 1),
                                                              .font: UIFont.boldSystemFont(ofSize: 14)]
         // Set Full Name user.firstName + " " + user.lastName
-        self.fullName = NSAttributedString(string: user.firstName + " " + user.lastName, attributes: nameAttributes)
+        self.fullName = NSAttributedString(string: user.firstName + " " + user.lastName, attributes: fullNameAttributes)
         
         /// LookingForJob Attributes
         let lookingForJobAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: #colorLiteral(red: 0.290160656, green: 0.2902164459, blue: 0.2901571095, alpha: 1),
@@ -83,7 +84,14 @@ class UserTableViewCellRepresentable: TableViewCellRepresentable {
         
         // Set profile Picture
            self.profilePictureUrl = "https://d7f8bv52wga7t.cloudfront.net/users/\(user.id)/user_profile/\(user.profileImageUUID)/240_240.jpeg"
+        
+        self.id = user.id
     }
+    
+    
+    
+    
+    
 
 }
 

@@ -16,7 +16,6 @@ class UsersViewController: UIViewController {
     /// View Model
     private(set) var viewModel: UsersViewModel!
     
-    
     /**
      View did Load
     */
@@ -24,8 +23,19 @@ class UsersViewController: UIViewController {
         super.viewDidLoad()
         self.viewModel = UsersViewModel()
         setupTableView()
+        navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.barStyle = .black
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+
+        
+    }
+    
+ 
     
     /**
      Setup Table View

@@ -91,6 +91,14 @@ extension UsersViewController: UITableViewDelegate {
      */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    
+        if let representable = self.viewModel.representableForRow(at: indexPath) as? UserTableViewCellRepresentable {
+            
+            let profileViewController = storyboard?.instantiateViewController(identifier: "ProfileViewController") as! ProfileViewController
+            profileViewController.userId = representable.id
+            self.navigationController?.pushViewController(profileViewController, animated: true)
+        }
+
     }
     
     

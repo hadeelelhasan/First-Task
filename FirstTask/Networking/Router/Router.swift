@@ -11,13 +11,18 @@ import Alamofire
 // MARK: - Router
 enum Router {
     case fetchUsers(parameters: Parameters)
+    case fetchUserInfo(userId: Int)
     
   /// Base URL
   var baseURL: String {
     switch self {
     case .fetchUsers:
         return "https://gateway.harridev.com"
+    case .fetchUserInfo:
+        return "https://api.harridev.com"
+    
     }
+    
   }
 
   /// Path
@@ -25,6 +30,8 @@ enum Router {
     switch self {
     case .fetchUsers:
         return "/core/api/v1/harri_search/search_users"
+    case .fetchUserInfo(let userId):
+        return "/api/v1/profile/member/\(userId)"
     }
   }
     
@@ -33,6 +40,8 @@ enum Router {
     switch self {
     case .fetchUsers:
       return .post
+    case .fetchUserInfo:
+        return .get
     }
   }
 }
@@ -47,6 +56,8 @@ extension Router: URLRequestConvertible {
     switch self {
     case .fetchUsers(let parameters):
             request = try JSONEncoding.default.encode(request, with: parameters)
+    case .fetchUserInfo:
+            request = try URLEncoding.default.encode(request, with: nil)
     }
     return request
   }

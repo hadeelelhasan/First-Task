@@ -96,6 +96,10 @@ class UsersViewModel {
         self.representables = []
     }
     
+    func getUserId(at indexPath: IndexPath) -> Int {
+        return users[indexPath.row].id
+    }
+    
     /**
      Get number of rows in section
      - Parameter section: Section number as Int

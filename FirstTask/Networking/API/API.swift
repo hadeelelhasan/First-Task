@@ -97,6 +97,24 @@ class API {
 //        }
     }
     
+    func fetchUserInfo(withId id: Int, completion: @escaping (UserData?) -> Void) {
+        
+        let request = managerSession.request(Router.fetchUserInfo(userId: id))
+        request.responseData { responseData in
+            guard let data = responseData.data,
+                  let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
+                  let jsonDict = jsonObject as? [String: Any],
+                  let jsonDataObj = jsonDict["data"] as? [String: Any], 
+                  let userData = try? JSONSerialization.data(withJSONObject: jsonDataObj, options: [])
+            else {
+                completion(nil)
+                return
+            }
+            let decoder = JSONDecoder()
+            let userInfo = try? decoder.decode(UserData.self, from: userData)
+            completion(userInfo)
+        }
+    }
 }
 
 
